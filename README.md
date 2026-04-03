@@ -33,6 +33,26 @@ See [Releases](https://github.com/voronelf/httpfake/releases) for detailed histo
 
 See [godoc reference](https://godoc.org/github.com/voronelf/httpfake) for detailed API documentation.
 
+## Wildcard Routes
+
+Httpfake supports wildcard patterns in route paths using the `*` character.
+This allows matching dynamic path segments without specifying exact values.
+
+```go
+// Match any user ID in the path
+fakeService.NewHandler().
+  Get("/users/*/").
+  Reply(200).
+  BodyString(`[{"username": "dreamer"}]`)
+
+// This will match:
+// - GET /users/1/
+// - GET /users/123/
+// - GET /users/any-value/
+```
+
+Wildcard patterns are supported for all HTTP methods: `Get`, `Post`, `Put`, `Patch`, `Delete`, `Head`.
+
 ## Assertions
 
 There are built-in methods you can use to make assertions about requests to your HTTP handlers. The currently
