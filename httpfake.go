@@ -12,6 +12,8 @@ import (
 	"strings"
 	"sync"
 	"testing"
+
+	"github.com/tidwall/match"
 )
 
 // HTTPFake is the root struct for the fake server
@@ -156,7 +158,7 @@ func (f *HTTPFake) findHandler(r *http.Request) (*Request, error) {
 			continue
 		}
 
-		if rh.URL.String() == url {
+		if match.Match(url, rh.URL.String()) {
 			return rh, nil
 		}
 
